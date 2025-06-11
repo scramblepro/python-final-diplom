@@ -1,4 +1,4 @@
-from distutils.util import strtobool
+from setuptools._distutils.util import strtobool
 from rest_framework.request import Request
 from django.contrib.auth import authenticate
 from django.contrib.auth.password_validation import validate_password
