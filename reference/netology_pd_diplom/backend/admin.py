@@ -1,8 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
-from backend.models import User, Shop, Category, Product, ProductInfo, Parameter, ProductParameter, Order, OrderItem, \
-    Contact, ConfirmEmailToken
+from backend.models import User, Shop, Category, Product, ProductInfo, Order, OrderItem, Contact
 
 
 @admin.register(User)
@@ -12,6 +10,9 @@ class CustomUserAdmin(UserAdmin):
     """
     model = User
 
+    ordering = ('email',)
+    search_fields = ('email', 'first_name', 'last_name')
+
     fieldsets = (
         (None, {'fields': ('email', 'password', 'type')}),
         ('Personal info', {'fields': ('first_name', 'last_name', 'company', 'position')}),
@@ -20,6 +21,7 @@ class CustomUserAdmin(UserAdmin):
         }),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
+
     list_display = ('email', 'first_name', 'last_name', 'is_staff')
 
 
@@ -43,16 +45,6 @@ class ProductInfoAdmin(admin.ModelAdmin):
     pass
 
 
-@admin.register(Parameter)
-class ParameterAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(ProductParameter)
-class ProductParameterAdmin(admin.ModelAdmin):
-    pass
-
-
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     pass
@@ -66,8 +58,3 @@ class OrderItemAdmin(admin.ModelAdmin):
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
     pass
-
-
-@admin.register(ConfirmEmailToken)
-class ConfirmEmailTokenAdmin(admin.ModelAdmin):
-    list_display = ('user', 'key', 'created_at',)

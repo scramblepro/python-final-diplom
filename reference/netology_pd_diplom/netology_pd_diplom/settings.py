@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_rest_passwordreset',
     'backend',
+    'drf_yasg',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -76,7 +78,6 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL = 'backend.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -114,14 +115,14 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'backend.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
+EMAIL_USE_TLS = True
 
-EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 
-EMAIL_HOST_USER = 'netology.diplom@mail.ru'
-EMAIL_HOST_PASSWORD = 'CLdm7yW4U9nivz9mbexu'
-EMAIL_PORT = '465'
-EMAIL_USE_SSL = True
+EMAIL_HOST_USER = '1570664a08949e'
+EMAIL_HOST_PASSWORD = '6ac26ada2cc91c'
+EMAIL_PORT = '2525'
+DEFAULT_FROM_EMAIL = 'no-reply@example.com'
 SERVER_EMAIL = EMAIL_HOST_USER
 
 REST_FRAMEWORK = {
@@ -133,6 +134,8 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
 
     ),
+
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',

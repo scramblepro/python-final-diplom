@@ -1,68 +1,98 @@
-# Пример API-сервиса для магазина
+### Сервис заказов для розничных сетей
+## Назначение
+Backend-приложение на Django Rest Framework для автоматизации закупок розничными клиентами у поставщиков.
 
-[Документация по запросам в PostMan](https://documenter.getpostman.com/view/5037826/SVfJUrSc) 
+## Основной функционал
+Регистрация и подтверждение аккаунта по email
+Авторизация по токену
+Управление контактами клиента
+Просмотр магазинов, категорий, товаров
+Формирование и оформление заказов
+Управление корзиной
+Поставщик может загружать прайс-лист в формате JSON/YAML
+Email-уведомления клиенту и администратору
+Документация API (Swagger/OpenAPI)
 
+## Быстрый запуск (через Docker)
 
+В проекте находятся следующие ключевые файлы для Docker:
 
+── Dockerfile
+── docker-compose.yml
+── requirements.txt
+── ...
 
-## **Получить исходный код**
+## Инструкция
 
-    git config --global user.name "YOUR_USERNAME"
-    
-    git config --global user.email "your_email_address@example.com"
-    
-    mkdir ~/my_diplom
-    
-    cd my_diplom
-    
-    git clone git@github.com:A-Iskakov/netology_pd_diplom.git
-    
-    cd netology_pd_diplom
-    
-    sudo pip3 install  --upgrade pip
-    
-    sudo pip3 install -r requirements.txt
-    
-    python3 manage.py makemigrations
-     
-    python3 manage.py migrate
-    
-    python3 manage.py createsuperuser    
-    
- 
-## **Проверить работу модулей**
-    
-    
-    python3 manage.py runserver 0.0.0.0:8000
+Клонируйте репозиторий:
 
+git clone https://github.com/scramblepro/python-final-diplom.git
+cd python-final-diplom
 
-## **Установить СУБД (опционально)**
+Соберите и запустите контейнер:
 
-    sudo nano  /etc/apt/sources.list.d/pgdg.list
-    
-    ----->
-    deb http://apt.postgresql.org/pub/repos/apt/ bionic-pgdg main
-    <<----
-    
-    
-    wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-    
-    sudo apt-get update
-    
-    sudo apt-get install postgresql-11 postgresql-server-dev-11
-    
-    sudo -u postgres psql postgres
-    
-    create user diplom_user with password 'password';
-    
-    alter role diplom_user set client_encoding to 'utf8';
-    
-    alter role diplom_user set default_transaction_isolation to 'read committed';
-    
-    alter role diplom_user set timezone to 'Europe/Moscow';
-    
-    create database diplom_db owner mploy;
-    alter user mploy createdb;
+docker-compose up --build
+Приложение будет доступно по адресу:
+http://localhost:8000
 
-    
-   
+## Ручной запуск (без Docker)
+
+Создайте виртуальное окружение и активируйте его:
+
+python -m venv venv
+source venv/bin/activate
+
+Установите зависимости:
+
+pip install -r requirements.txt
+
+Выполните миграции и создайте суперпользователя:
+
+python manage.py migrate
+python manage.py createsuperuser
+
+Запустите сервер:
+
+python manage.py runserver
+
+## Примеры API-запросов
+
+Готовые примеры находятся в файле:
+
+requests.http
+
+Вы можете открыть его в VSCode или использовать Postman.
+
+## Документация API
+
+Swagger: /swagger/
+
+## Используемые технологии
+
+Python 3.12
+
+Django 5.2
+
+Django REST Framework
+
+SQLite
+
+Mailtrap (SMTP)
+
+Docker + Docker Compose
+
+drf-spectacular (Swagger/OpenAPI)
+
+## Примечания
+
+По умолчанию email-уведомления отправляются через Mailtrap (тестовая SMTP-песочница)
+
+Поддерживаются форматы импорта JSON и YAML
+
+В проекте реализована архитектура с Signal'ами и email-рассылкой
+
+## Автор
+
+Насыров А. Р.
+Проект для курса "[Python-разработчик]" от Нетологии
+GitHub: https://github.com/scramblepro/python-final-diplom

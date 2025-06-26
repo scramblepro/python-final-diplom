@@ -1,0 +1,70 @@
+# отправляем запрос на создание пользователя, логинимся - получаем токен, сохраняем
+# его и используем во всех последующих запросах
+
+## CURL - запрос создание пользователя
+# curl -X POST http://localhost:8000/api/v1/user/register \
+#   -H "Content-Type: application/json" \
+#   -d '{
+#     "email": "buyer@example.com",
+#     "password": "test1234",
+#     "password_repeat": "test1234",
+#     "company": "TestBuyerCorp",
+#     "position": "manager"
+#   }'
+
+### логин
+POST http://localhost:8000/api/v1/user/login
+Content-Type: application/json
+
+{
+  "email": "shop@example.com",
+  "password": "12345678"
+}
+
+### добавление контакта пользователя
+POST http://localhost:8000/api/v1/user/contact/
+Authorization: Token ***
+Content-Type: application/json
+
+{
+  "city": "Москва",
+  "street": "Ленина, 10",
+  "phone": "+79991234567",
+  "house": "red_house"
+}
+
+### добавление товара в корзину
+POST http://127.0.0.1:8000/api/v1/basket
+Authorization: Token ***
+Content-Type: application/json
+
+{
+  "items": [
+    {
+      "product_info": 1,
+      "quantity": 2
+    },
+    {
+      "product_info": 2,
+      "quantity": 1
+    }
+  ]
+}
+
+### получение списка контактов пользователя
+GET http://127.0.0.1:8000/api/v1/user/contact
+Authorization: Token ***
+
+### список заказов
+
+GET http://localhost:8000/api/v1/order/
+Authorization: Token 74ba016c48c226398b22f7a14a771880eb1e1a12
+
+### оформление заказа - должна быть не пустая корзина и указан контакт для доставки
+POST http://localhost:8000/api/v1/order/
+Authorization: Token 74ba016c48c226398b22f7a14a771880eb1e1a12
+Content-Type: application/json
+
+{
+  "contact": 1
+}
